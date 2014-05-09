@@ -1,5 +1,10 @@
 const emptyDir = require('../');
 const expect = require('chai').expect;
+const fs = require('fs');
+
+try {
+  fs.mkdirSync('./test/empty');
+} catch (e) {}
 
 describe('emptyDir', function () {
   it('should call back with true if a directory is empty', function (done) {
