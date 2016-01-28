@@ -13,11 +13,16 @@ function isEmpty(path, fn, callback) {
   }
 
   fs.readdir(path, function(err, files) {
-    if (err === null) {
-      callback(null, hasFiles(files, fn));
-    } else {
+    if (err) {
       callback(err);
+      return;
     }
+
+    if (typeof fn === 'function') {
+      files = files.filter(fn);
+    }
+
+    callback(null, files.length === 0);
   });
 };
 
@@ -26,19 +31,17 @@ isEmpty.sync = function(path, fn) {
     return false;
   }
   try {
-    return hasFiles(fs.readdirSync(path), fn);
+    var files = fs.readdirSync(path);
+    if (typeof fn === 'function') {
+      files = files.filter(fn);
+    }
+    return files.length === 0;
   } catch (err) {};
   return false;
 };
 
-function hasFiles(files, fn) {
-  return files.filter(fn || function(path) {
-    return !/\.DS_Store/i.test(path);
-  }).length === 0;
-}
-
 function exists(path) {
-  return path ? typeof tryOpen(path, 'r') === 'number' : false;
+  return path && typeof tryOpen(path, 'r') === 'number';
 }
 
 module.exports = isEmpty;
