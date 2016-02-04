@@ -21,8 +21,8 @@
     "try-open": "^0.1.0"
   },
   "devDependencies": {
-    "chai": "*",
-    "mocha": "*"
+    "chai": "~1.9.1",
+    "mocha": "~1.18.2"
   },
   "keywords": [
     "empty directory",
