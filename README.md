@@ -23,7 +23,7 @@ console.log('Directory is empty:', result);
 
 **Filter function**
 
-Both async and sync take a filter function as the second argument. 
+Both async and sync take a filter function as the second argument.
 
 _(This gives you the ability to eliminate files like `.DS_Store` on mac, or `Thumbs.db` on windows from causing the result to be "not empty" (`.DS_Store` is already filtered by default).)_
 
@@ -49,3 +49,4 @@ console.log('Directory is empty:', result);
 ## Release History
 
 * 2014-05-08 - v0.1.0 - initial release
+* 2016-02-07 - v0.2.0 - add filter support
