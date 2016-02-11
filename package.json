@@ -2,11 +2,11 @@
   "name": "empty-dir",
   "description": "Check if a directory is empty.",
   "version": "0.2.0",
-  "homepage": "https://github.com/tkellen/js-empty-dir",
+  "homepage": "https://github.com/js-cli/js-empty-dir",
   "author": "Tyler Kellen <http://goingslowly.com/>",
-  "repository": "tkellen/js-empty-dir",
+  "repository": "js-cli/js-empty-dir",
   "bugs": {
-    "url": "https://github.com/tkellen/js-empty-dir/issues"
+    "url": "https://github.com/js-cli/js-empty-dir/issues"
   },
   "license": "MIT",
   "main": "index.js",
