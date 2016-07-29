@@ -1,5 +1,5 @@
 const fs = require('fs');
-const tryOpen = require('try-open');
+const exists = require('fs-exists-sync');
 
 function isEmpty(path, fn, callback) {
   if (arguments.length === 2) {
@@ -24,7 +24,7 @@ function isEmpty(path, fn, callback) {
 
     callback(null, files.length === 0);
   });
-};
+}
 
 isEmpty.sync = function(path, fn) {
   if (!exists(path)) {
@@ -36,12 +36,8 @@ isEmpty.sync = function(path, fn) {
       files = files.filter(fn);
     }
     return files.length === 0;
-  } catch (err) {};
+  } catch (err) {}
   return false;
 };
-
-function exists(path) {
-  return path && typeof tryOpen(path, 'r') === 'number';
-}
 
 module.exports = isEmpty;

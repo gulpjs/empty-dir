@@ -10,7 +10,9 @@
   },
   "license": "MIT",
   "main": "index.js",
-  "files": ["index.js"],
+  "files": [
+    "index.js"
+  ],
   "engines": {
     "node": ">= 0.8.0"
   },
@@ -18,7 +20,7 @@
     "test": "mocha"
   },
   "dependencies": {
-    "try-open": "^0.1.0"
+    "fs-exists-sync": "^0.1.0"
   },
   "devDependencies": {
     "chai": "~1.9.1",
