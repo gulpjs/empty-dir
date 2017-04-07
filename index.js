@@ -22,7 +22,7 @@ function emptyDir(dir, filter, cb) {
     return;
   }
 
-  if (!fs.existsSync(dir)) {
+  if (!isDirectory(dir)) {
     cb(null, false);
     return;
   }
@@ -46,7 +46,7 @@ function emptyDirSync(dir, filter) {
     throw new TypeError('expected a directory or array of files');
   }
 
-  if (!fs.existsSync(dir)) {
+  if (!isDirectory(dir)) {
     return false;
   }
 
@@ -67,12 +67,24 @@ function isEmpty(files, filter) {
   if (typeof filter !== 'function') {
     return false;
   }
+
   for (var i = 0; i < files.length; ++i) {
     if (filter(files[i]) === false) {
       return false;
     }
   }
   return true;
+}
+
+/**
+ * Returns true if "dir" exists and is a directory
+ */
+
+function isDirectory(dir) {
+  try {
+    return fs.statSync(dir).isDirectory();
+  } catch (err) {}
+  return false;
 }
 
 /**
