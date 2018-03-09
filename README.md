@@ -3,11 +3,18 @@
 
 [![NPM](https://nodei.co/npm/empty-dir.png)](https://nodei.co/npm/empty-dir/)
 
-Note that directories with `.DS_Store` on mac are considered empty.
+## Install
 
-## Example
+Install with [npm](https://www.npmjs.com/):
+
+```sh
+$ npm install --save empty-dir
+```
+
+## Usage
+
 ```js
-const emptyDir = require('empty-dir');
+var emptyDir = require('empty-dir');
 
 emptyDir('./', function (err, result) {
   if (err) {
@@ -21,32 +28,32 @@ var result = emptyDir.sync('./test/empty');
 console.log('Directory is empty:', result);
 ```
 
-**Filter function**
+## Filter function
 
-Both async and sync take a filter function as the second argument.
+Both async and sync take a filter function as the second argument, to ignore files like `.DS_Store` on mac or `Thumbs.db` on windows from causing false-negatives.
 
-_(This gives you the ability to eliminate files like `.DS_Store` on mac, or `Thumbs.db` on windows from causing the result to be "not empty" (`.DS_Store` is already filtered by default).)_
 
 ```js
-const emptyDir = require('empty-dir');
+var emptyDir = require('empty-dir');
 
 function filter(filepath) {
-  return !/Thumbs\.db$/i.test(filepath);
+  return !/(Thumbs\.db|\.DS_Store)$/i.test(filepath);
 }
 
-emptyDir('./', filter, function (err, result) {
+emptyDir('./', filter, function (err, isEmpty) {
   if (err) {
     console.error(err);
   } else {
-    console.log('Directory is empty:', result);
+    console.log('Directory is empty:', isEmpty);
   }
 });
 
-var result = emptyDir.sync('./test/empty', filter);
-console.log('Directory is empty:', result);
+var isEmpty = emptyDir.sync('./test/empty', filter);
+console.log('Directory is empty:', isEmpty);
 ```
 
 ## Release History
 
-* 2014-05-08 - v0.1.0 - initial release
+* 2018-03-09 - v1.0.0 - refactored "isEmpty" logic so that it returns early, as soon as a non-filtered file is encountered, instead of filtering the entire list and comparing against length. Also allows an array to be passed (this avoids having to call `fs.readdir()` multiple times).
 * 2016-02-07 - v0.2.0 - add filter support
+* 2014-05-08 - v0.1.0 - initial release

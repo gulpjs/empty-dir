@@ -22,13 +22,15 @@ function emptyDir(dir, filter, cb) {
     return;
   }
 
-  if (!isDirectory(dir)) {
-    cb(null, false);
-    return;
-  }
+  fs.stat(dir, function(err, stat) {
+    if (err || !stat.isDirectory()) {
+      cb(null, false);
+      return;
+    }
 
-  fs.readdir(dir, function(err, files) {
-    cb(err, isEmpty(files, filter));
+    fs.readdir(dir, function(err, files) {
+      cb(err, isEmpty(files, filter));
+    });
   });
 }
 
@@ -77,12 +79,12 @@ function isEmpty(files, filter) {
 }
 
 /**
- * Returns true if "dir" exists and is a directory
+ * Returns true if the filepath exists and is a directory
  */
 
-function isDirectory(dir) {
+function isDirectory(filepath) {
   try {
-    return fs.statSync(dir).isDirectory();
+    return fs.statSync(filepath).isDirectory();
   } catch (err) {}
   return false;
 }

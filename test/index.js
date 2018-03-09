@@ -1,9 +1,10 @@
 var emptyDir = require('../');
 var assert = require('assert');
+var path = require('path');
 var fs = require('fs');
 
 try {
-  fs.mkdirSync('./test/empty');
+  fs.mkdirSync(path.join(__dirname, 'empty'));
 } catch (e) {}
 
 function isGarbageFile(filename) {
@@ -13,8 +14,8 @@ function isGarbageFile(filename) {
 describe('emptyDir', function () {
   it('should throw when a callback is not passed', function () {
     assert.throws(function() {
-      emptyDir('./');
-    });
+      emptyDir('./')
+    }, /expected/);
   });
 
   it('should throw when invalid arguments are passed', function (done) {
