@@ -19,16 +19,13 @@
   "scripts": {
     "test": "mocha"
   },
-  "dependencies": {
-    "fs-exists-sync": "^0.1.0"
-  },
-  "devDependencies": {
-    "chai": "^3.5.0",
-    "mocha": "^3.2.0"
-  },
   "keywords": [
-    "empty directory",
-    "empty dir",
-    "empty folder"
-  ]
+    "empty",
+    "is-empty",
+    "directory",
+    "folder"
+  ],
+  "devDependencies": {
+    "mocha": "^3.5.3"
+  }
 }
