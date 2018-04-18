@@ -8,30 +8,42 @@ function emptyDir(dir, filter, cb) {
     filter = null;
   }
 
-  if (typeof cb !== 'function') {
+  if (cb && typeof cb !== 'function') {
     throw new TypeError('expected callback to be a function');
   }
 
-  if (Array.isArray(dir)) {
-    cb(null, isEmpty(dir, filter));
-    return;
+  if (!Array.isArray(dir) && typeof dir !== 'string') {
+    throw new TypeError('expected a directory or array of files');
   }
 
-  if (typeof dir !== 'string') {
-    cb(new TypeError('expected a directory or array of files'));
-    return;
-  }
-
-  fs.stat(dir, function(err, stat) {
-    if (err || !stat.isDirectory()) {
-      cb(null, false);
-      return;
+  var p = new Promise(function(resolve, reject) {
+    if (Array.isArray(dir)) {
+      return resolve(isEmpty(dir, filter));
     }
 
-    fs.readdir(dir, function(err, files) {
-      cb(err, isEmpty(files, filter));
+    fs.stat(dir, function(err, stat) {
+      if (err || !stat.isDirectory()) {
+        return resolve(false);
+      }
+
+      fs.readdir(dir, function(err, files) {
+        if (err) {
+          return reject(err);
+        }
+
+        resolve(isEmpty(files, filter));
+      });
     });
   });
+
+  if (cb) {
+    p.then(function(result) {
+      cb(null, result);
+    }).catch(cb);
+    return;
+  }
+
+  return p;
 }
 
 /**

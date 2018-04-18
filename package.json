@@ -11,7 +11,7 @@
   "repository": "gulpjs/empty-dir",
   "license": "MIT",
   "engines": {
-    "node": ">= 0.10"
+    "node": ">= 4"
   },
   "main": "index.js",
   "files": [

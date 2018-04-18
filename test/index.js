@@ -15,9 +15,9 @@ function isGarbageFile(filename) {
 }
 
 describe('emptyDir', function() {
-  it('should throw when a callback is not passed', function(done) {
+  it('should throw when the callback is not a function', function(done) {
     expect(function() {
-      emptyDir('./');
+      emptyDir('./', 'foo', 'bar');
     }).toThrow(/expected/);
     done();
   });
@@ -27,11 +27,10 @@ describe('emptyDir', function() {
       emptyDir.sync(null);
     }).toThrow();
 
-    emptyDir(null, function(err) {
-      expect(err).toExist();
-      expect(/expected/.test(err.message)).toEqual(true);
-      done();
-    });
+    expect(function() {
+      emptyDir(null);
+    }).toThrow();
+    done();
   });
 
   it('should take an array', function(done) {
@@ -64,8 +63,7 @@ describe('emptyDir', function() {
   it('should be false if a directory does not exist', function(done) {
     expect(emptyDir.sync('./foo/bar/baz')).toEqual(false);
     emptyDir('./foo/bar/baz', function(err, empty) {
-      expect(empty).toEqual(false);
-      done();
+      done(err);
     });
   });
 
@@ -74,6 +72,37 @@ describe('emptyDir', function() {
     emptyDir('./', function(err, empty) {
       expect(empty).toEqual(false);
       done();
+    });
+  });
+
+  describe('without a callback argument', function() {
+    it('should return a Promise', function(done) {
+      var p = emptyDir('./test/empty');
+      expect(p.then).toBeA('function');
+      p.then(function() {
+        done();
+      });
+    });
+
+    it('should resolve with false if a directory does not exist', function(done) {
+      emptyDir('/root/super/secret').then(function(result) {
+        expect(result).toEqual(false);
+        done();
+      });
+    });
+
+    it('should resolve with true if a directory is empty', function(done) {
+      emptyDir('./test/empty').then(function(result) {
+        expect(result).toEqual(true);
+        done();
+      });
+    });
+
+    it('should resolve with false if a directory is not empty', function(done) {
+      emptyDir('./test').then(function(result) {
+        expect(result).toEqual(false);
+        done();
+      });
     });
   });
 });

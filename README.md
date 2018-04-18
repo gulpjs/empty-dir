@@ -15,12 +15,18 @@ Check if a directory is empty.
 ```js
 var emptyDir = require('empty-dir');
 
-emptyDir('./', function (err, result) {
+// Using an error-back
+emptyDir('./', function(err, result) {
   if (err) {
     console.error(err);
   } else {
     console.log('Directory is empty:', result);
   }
+});
+
+// Using a Promise
+emptyDir('./').then(function(result) {
+  console.log('Directory is empty:', result);
 });
 
 var result = emptyDir.sync('./test/empty');
@@ -29,9 +35,9 @@ console.log('Directory is empty:', result);
 
 ## API
 
-### `emptyDir(paths, [filterFunction], callback)`
+### `emptyDir(paths, [filterFunction], [callback])`
 
-Takes a path string or array of path strings and a callback function. Checks if the given paths are empty and passes any `error` and an `isEmpty` flag to the callback. Optionally takes a filter function before the callback to filter out files that cause false positives.
+Takes a path string or array of path strings and returns a Promise. Checks if the given paths are empty and resolves with a boolean indicating if the paths are empty directories. Optionally takes a filter function to filter out files that cause false positives. Also, can take a node-style callback function instead of returning a Promise.
 
 ### `emptyDir.sync(paths, [filterFunction])`
 
@@ -48,7 +54,7 @@ function filter(filepath) {
   return !/(Thumbs\.db|\.DS_Store)$/i.test(filepath);
 }
 
-emptyDir('./', filter, function (err, isEmpty) {
+emptyDir('./', filter, function(err, isEmpty) {
   if (err) {
     console.error(err);
   } else {
@@ -58,6 +64,20 @@ emptyDir('./', filter, function (err, isEmpty) {
 
 var isEmpty = emptyDir.sync('./test/empty', filter);
 console.log('Directory is empty:', isEmpty);
+```
+
+#### Promises
+
+Global promises are required for this module. If you are using a platform that doesn't have promise support, you'll need to polyfill Promise on the global.
+
+```js
+global.Promise = require('insert-your-promise-polyfill-here');
+
+var emptyDir = require('empty-dir');
+
+emptyDir('./').then(function(result) {
+  console.log('Directory is empty:', result);
+});
 ```
 
 ## License
