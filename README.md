@@ -11,11 +11,14 @@ Install with [npm](https://www.npmjs.com/):
 $ npm install --save empty-dir
 ```
 
+If your version of Node does not support native Promises, you'll need to also install an [`any-promise`](https://github.com/kevinbeaty/any-promise) compatible Promise polyfill.
+
 ## Usage
 
 ```js
 var emptyDir = require('empty-dir');
 
+// Using an error-back
 emptyDir('./', function (err, result) {
   if (err) {
     console.error(err);
@@ -23,6 +26,11 @@ emptyDir('./', function (err, result) {
     console.log('Directory is empty:', result);
   }
 });
+
+// Using a Promise
+emptyDir('./').then(function (result) {
+  console.log('Directory is empty:', result);
+})
 
 var result = emptyDir.sync('./test/empty');
 console.log('Directory is empty:', result);

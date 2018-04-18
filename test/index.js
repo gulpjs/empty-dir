@@ -12,22 +12,20 @@ function isGarbageFile(filename) {
 }
 
 describe('emptyDir', function () {
-  it('should throw when a callback is not passed', function () {
+  it('should throw when the callback is not a function', function () {
     assert.throws(function() {
-      emptyDir('./')
+      emptyDir('./', 'foo', 'bar')
     }, /expected/);
   });
 
-  it('should throw when invalid arguments are passed', function (done) {
+  it('should throw when invalid arguments are passed', function () {
     assert.throws(function() {
       emptyDir.sync(null);
     });
 
-    emptyDir(null, function(err) {
-      assert(err);
-      assert(/expected/.test(err.message));
-      done();
-    });
+    assert.throws(function () {
+      emptyDir(null)
+    })
   });
 
   it('should take an array', function (done) {
@@ -72,4 +70,34 @@ describe('emptyDir', function () {
       done();
     });
   });
+
+  describe('without a callback argument', function () {
+    it('should return a Promise', function () {
+      var p = emptyDir('./test/empty')
+      assert.equal(typeof p.then, 'function')
+      p.catch(function (err) {
+        // Ignore
+      })
+    })
+
+    it('should reject when given an invalid path', function (done) {
+      emptyDir('/root/super/secret').catch(function (err) {
+        done()
+      })
+    })
+
+    it('should resolve with true if a directory is empty', function (done) {
+      emptyDir('./test/empty').then(function (result) {
+        assert.equal(result, true)
+        done()
+      })
+    });
+
+    it('should resolve with false if a directory is not empty', function (done) {
+      emptyDir('./test').then(function (result) {
+        assert.equal(result, false)
+        done()
+      })
+    });
+  })
 });
