@@ -1,6 +1,6 @@
 'use strict';
 
-var Promise = require('any-promise')
+var Promise = require('any-promise');
 var fs = require('fs');
 
 function emptyDir(dir, filter, cb) {
@@ -14,42 +14,42 @@ function emptyDir(dir, filter, cb) {
   }
 
   if (!Array.isArray(dir) && typeof dir !== 'string') {
-    throw new TypeError('expected a directory or array of files')
+    throw new TypeError('expected a directory or array of files');
   }
 
   var p = new Promise(function(resolve, reject) {
     if (Array.isArray(dir)) {
-      return resolve(isEmpty(dir, filter))
+      return resolve(isEmpty(dir, filter));
     }
 
     fs.stat(dir, function(err, stat) {
       if (err) {
-        return reject(err)
+        return reject(err);
       }
 
       if (!stat.isDirectory()) {
-        return resolve(false)
+        return resolve(false);
       }
 
-      fs.readdir(dir, function(err,files) {
+      fs.readdir(dir, function(err, files) {
         if (err) {
-          return reject(err)
+          return reject(err);
         }
 
-        resolve(isEmpty(files, filter))
+        resolve(isEmpty(files, filter));
       })
     })
   })
 
   if (cb) {
     p.then(function (result) {
-      cb(null, result)
+      cb(null, result);
     }).catch(function (err) {
-      cb(err)
+      cb(err);
     })
   }
 
-  return p
+  return p;
 }
 
 /**
