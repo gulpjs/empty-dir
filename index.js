@@ -1,6 +1,5 @@
 'use strict';
 
-var Promise = require('any-promise');
 var fs = require('fs');
 
 function emptyDir(dir, filter, cb) {
