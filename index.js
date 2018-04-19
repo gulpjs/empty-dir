@@ -36,16 +36,16 @@ function emptyDir(dir, filter, cb) {
         }
 
         resolve(isEmpty(files, filter));
-      })
-    })
-  })
+      });
+    });
+  });
 
   if (cb) {
     p.then(function (result) {
       cb(null, result);
     }).catch(function (err) {
       cb(err);
-    })
+    });
   }
 
   return p;

@@ -25,7 +25,7 @@ describe('emptyDir', function () {
 
     assert.throws(function () {
       emptyDir(null);
-    })
+    });
   });
 
   it('should take an array', function (done) {
@@ -99,5 +99,5 @@ describe('emptyDir', function () {
         done();
       });
     });
-  })
+  });
 });
