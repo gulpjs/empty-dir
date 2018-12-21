@@ -1,31 +1,44 @@
 {
   "name": "empty-dir",
-  "description": "Check if a directory is empty.",
   "version": "1.0.0",
-  "homepage": "https://github.com/js-cli/js-empty-dir",
-  "author": "Tyler Kellen <http://goingslowly.com/>",
-  "repository": "js-cli/js-empty-dir",
-  "bugs": {
-    "url": "https://github.com/js-cli/js-empty-dir/issues"
-  },
+  "description": "Check if a directory is empty.",
+  "author": "Gulp Team <team@gulpjs.com> (http://gulpjs.com/)",
+  "contributors": [
+    "Tyler Kellen <tyler@sleekcode.net>",
+    "Jon Schlinkert <jon.schlinkert@sellside.com>",
+    "Blaine Bublitz <blaine.bublitz@gmail.com>"
+  ],
+  "repository": "gulpjs/empty-dir",
   "license": "MIT",
+  "engines": {
+    "node": ">= 0.10"
+  },
   "main": "index.js",
   "files": [
-    "index.js"
+    "index.js",
+    "LICENSE"
   ],
-  "engines": {
-    "node": ">= 0.8.0"
-  },
   "scripts": {
-    "test": "mocha"
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "mocha --async-only",
+    "cover": "istanbul cover _mocha --report lcovonly",
+    "coveralls": "npm run cover && istanbul-coveralls"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^2.13.0",
+    "eslint-config-gulp": "^3.0.1",
+    "expect": "^1.20.2",
+    "istanbul": "^0.4.3",
+    "istanbul-coveralls": "^1.0.3",
+    "mocha": "^3.5.3"
   },
   "keywords": [
     "empty",
     "is-empty",
     "directory",
-    "folder"
-  ],
-  "devDependencies": {
-    "mocha": "^3.5.3"
-  }
+    "folder",
+    "check"
+  ]
 }
