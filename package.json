@@ -1,7 +1,7 @@
 {
   "name": "empty-dir",
   "description": "Check if a directory is empty.",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "homepage": "https://github.com/tkellen/node-empty-dir",
   "author": {
     "name": "Tyler Kellen",
