@@ -51,7 +51,7 @@ Both async and sync take a filter function as the second argument, to ignore fil
 var emptyDir = require('empty-dir');
 
 function filter(filepath) {
-  return !/(Thumbs\.db|\.DS_Store)$/i.test(filepath);
+  return /(Thumbs\.db|\.DS_Store)$/i.test(filepath);
 }
 
 emptyDir('./', filter, function(err, isEmpty) {
