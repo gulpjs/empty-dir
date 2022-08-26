@@ -2,6 +2,7 @@ var fs = require('fs');
 var path = require('path');
 
 var expect = require('expect');
+var sinon = require('sinon');
 
 var emptyDir = require('../');
 try {
@@ -75,6 +76,21 @@ describe('emptyDir', function () {
     expect(emptyDir.sync('./')).toEqual(false);
     emptyDir('./', function (err, empty) {
       expect(empty).toEqual(false);
+      done();
+    });
+  });
+
+  it('surfaces readdir error if one occurs', function (done) {
+    sinon.stub(fs, 'readdir').callsFake(function (dirpath, cb) {
+      cb(new Error('boom'));
+    });
+
+    emptyDir('./test/empty', function (err, empty) {
+      fs.readdir.restore();
+
+      expect(err).toBeDefined();
+      expect(empty).toBeUndefined();
+
       done();
     });
   });
