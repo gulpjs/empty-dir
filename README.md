@@ -6,7 +6,7 @@
 
 # empty-dir
 
-[![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url] [![Travis Build Status][travis-image]][travis-url] [![AppVeyor Build Status][appveyor-image]][appveyor-url] [![Coveralls Status][coveralls-image]][coveralls-url] [![Gitter chat][gitter-image]][gitter-url]
+[![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url] [![Build Status][ci-image]][ci-url] [![Coveralls Status][coveralls-image]][coveralls-url]
 
 Check if a directory is empty.
 
@@ -84,18 +84,14 @@ emptyDir('./').then(function(result) {
 
 MIT
 
-[downloads-image]: http://img.shields.io/npm/dm/empty-dir.svg
+<!-- prettier-ignore-start -->
+[downloads-image]: https://img.shields.io/npm/dm/empty-dir.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/empty-dir
-[npm-image]: http://img.shields.io/npm/v/empty-dir.svg
+[npm-image]: https://img.shields.io/npm/v/empty-dir.svg?style=flat-square
 
-[travis-url]: https://travis-ci.org/gulpjs/empty-dir
-[travis-image]: http://img.shields.io/travis/gulpjs/empty-dir.svg?label=travis-ci
-
-[appveyor-url]: https://ci.appveyor.com/project/gulpjs/empty-dir
-[appveyor-image]: https://img.shields.io/appveyor/ci/gulpjs/empty-dir.svg?label=appveyor
+[ci-url]: https://github.com/gulpjs/empty-dir/actions?query=workflow:dev
+[ci-image]: https://img.shields.io/github/workflow/status/gulpjs/empty-dir/dev?style=flat-square
 
 [coveralls-url]: https://coveralls.io/r/gulpjs/empty-dir
-[coveralls-image]: http://img.shields.io/coveralls/gulpjs/empty-dir/master.svg
-
-[gitter-url]: https://gitter.im/gulpjs/gulp
-[gitter-image]: https://badges.gitter.im/gulpjs/gulp.svg
+[coveralls-image]: https://img.shields.io/coveralls/gulpjs/empty-dir/master.svg?style=flat-square
+<!-- prettier-ignore-end -->

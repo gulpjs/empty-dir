@@ -2,7 +2,7 @@
   "name": "empty-dir",
   "version": "2.0.0",
   "description": "Check if a directory is empty.",
-  "author": "Gulp Team <team@gulpjs.com> (http://gulpjs.com/)",
+  "author": "Gulp Team <team@gulpjs.com> (https://gulpjs.com/)",
   "contributors": [
     "Tyler Kellen <tyler@sleekcode.net>",
     "Jon Schlinkert <jon.schlinkert@sellside.com>",
@@ -11,7 +11,7 @@
   "repository": "gulpjs/empty-dir",
   "license": "MIT",
   "engines": {
-    "node": ">= 4"
+    "node": ">=10.13.0"
   },
   "main": "index.js",
   "files": [
@@ -21,18 +21,24 @@
   "scripts": {
     "lint": "eslint .",
     "pretest": "npm run lint",
-    "test": "mocha --async-only",
-    "cover": "istanbul cover _mocha --report lcovonly",
-    "coveralls": "npm run cover && istanbul-coveralls"
+    "test": "nyc mocha --async-only"
   },
-  "dependencies": {},
   "devDependencies": {
-    "eslint": "^2.13.0",
-    "eslint-config-gulp": "^3.0.1",
-    "expect": "^1.20.2",
-    "istanbul": "^0.4.3",
-    "istanbul-coveralls": "^1.0.3",
-    "mocha": "^3.5.3"
+    "eslint": "^7.0.0",
+    "eslint-config-gulp": "^5.0.0",
+    "eslint-plugin-node": "^11.1.0",
+    "expect": "^27.0.0",
+    "mocha": "^8.0.0",
+    "nyc": "^15.0.0"
+  },
+  "nyc": {
+    "reporter": [
+      "lcov",
+      "text-summary"
+    ]
+  },
+  "prettier": {
+    "singleQuote": true
   },
   "keywords": [
     "empty",
