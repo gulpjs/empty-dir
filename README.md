@@ -16,7 +16,7 @@ Check if a directory is empty.
 var emptyDir = require('empty-dir');
 
 // Using an error-back
-emptyDir('./', function(err, result) {
+emptyDir('./', function (err, result) {
   if (err) {
     console.error(err);
   } else {
@@ -25,7 +25,7 @@ emptyDir('./', function(err, result) {
 });
 
 // Using a Promise
-emptyDir('./').then(function(result) {
+emptyDir('./').then(function (result) {
   console.log('Directory is empty:', result);
 });
 
@@ -54,7 +54,7 @@ function filter(filepath) {
   return /(Thumbs\.db|\.DS_Store)$/i.test(filepath);
 }
 
-emptyDir('./', filter, function(err, isEmpty) {
+emptyDir('./', filter, function (err, isEmpty) {
   if (err) {
     console.error(err);
   } else {
@@ -75,7 +75,7 @@ global.Promise = require('insert-your-promise-polyfill-here');
 
 var emptyDir = require('empty-dir');
 
-emptyDir('./').then(function(result) {
+emptyDir('./').then(function (result) {
   console.log('Directory is empty:', result);
 });
 ```

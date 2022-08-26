@@ -16,17 +16,17 @@ function emptyDir(dir, filter, cb) {
     throw new TypeError('expected a directory or array of files');
   }
 
-  var p = new Promise(function(resolve, reject) {
+  var p = new Promise(function (resolve, reject) {
     if (Array.isArray(dir)) {
       return resolve(isEmpty(dir, filter));
     }
 
-    fs.stat(dir, function(err, stat) {
+    fs.stat(dir, function (err, stat) {
       if (err || !stat.isDirectory()) {
         return resolve(false);
       }
 
-      fs.readdir(dir, function(err, files) {
+      fs.readdir(dir, function (err, files) {
         if (err) {
           return reject(err);
         }
@@ -37,7 +37,7 @@ function emptyDir(dir, filter, cb) {
   });
 
   if (cb) {
-    p.then(function(result) {
+    p.then(function (result) {
       cb(null, result);
     }).catch(cb);
     return;
