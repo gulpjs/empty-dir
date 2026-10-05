@@ -97,7 +97,7 @@ function isEmpty(files, filter) {
 function isDirectory(filepath) {
   try {
     return fs.statSync(filepath).isDirectory();
-  } catch (err) {
+  } catch {
     // Ignore error
   }
   return false;

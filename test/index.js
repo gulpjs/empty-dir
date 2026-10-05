@@ -7,7 +7,7 @@ var sinon = require("sinon");
 var emptyDir = require("../");
 try {
   fs.mkdirSync(path.join(__dirname, "empty"));
-} catch (e) {
+} catch {
   // Ignore error
 }
 
