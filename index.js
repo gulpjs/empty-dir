@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-var fs = require('fs');
+var fs = require("fs");
 
 function emptyDir(dir, filter, cb) {
   if (arguments.length === 2) {
@@ -8,12 +8,12 @@ function emptyDir(dir, filter, cb) {
     filter = null;
   }
 
-  if (cb && typeof cb !== 'function') {
-    throw new TypeError('expected callback to be a function');
+  if (cb && typeof cb !== "function") {
+    throw new TypeError("expected callback to be a function");
   }
 
-  if (!Array.isArray(dir) && typeof dir !== 'string') {
-    throw new TypeError('expected a directory or array of files');
+  if (!Array.isArray(dir) && typeof dir !== "string") {
+    throw new TypeError("expected a directory or array of files");
   }
 
   var p = new Promise(function (resolve, reject) {
@@ -56,8 +56,8 @@ function emptyDirSync(dir, filter) {
     return isEmpty(dir, filter);
   }
 
-  if (typeof dir !== 'string') {
-    throw new TypeError('expected a directory or array of files');
+  if (typeof dir !== "string") {
+    throw new TypeError("expected a directory or array of files");
   }
 
   if (!isDirectory(dir)) {
@@ -78,7 +78,7 @@ function isEmpty(files, filter) {
     return true;
   }
 
-  if (typeof filter !== 'function') {
+  if (typeof filter !== "function") {
     return false;
   }
 

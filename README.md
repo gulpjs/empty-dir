@@ -13,24 +13,24 @@ Check if a directory is empty.
 ## Usage
 
 ```js
-var emptyDir = require('empty-dir');
+var emptyDir = require("empty-dir");
 
 // Using an error-back
-emptyDir('./', function (err, result) {
+emptyDir("./", function (err, result) {
   if (err) {
     console.error(err);
   } else {
-    console.log('Directory is empty:', result);
+    console.log("Directory is empty:", result);
   }
 });
 
 // Using a Promise
-emptyDir('./').then(function (result) {
-  console.log('Directory is empty:', result);
+emptyDir("./").then(function (result) {
+  console.log("Directory is empty:", result);
 });
 
-var result = emptyDir.sync('./test/empty');
-console.log('Directory is empty:', result);
+var result = emptyDir.sync("./test/empty");
+console.log("Directory is empty:", result);
 ```
 
 ## API
@@ -48,22 +48,22 @@ Same as the above API but operates and returns synchronously. An error will be t
 Both async and sync take a filter function as the second argument, to ignore files like `.DS_Store` on mac or `Thumbs.db` on windows from causing false-negatives.
 
 ```js
-var emptyDir = require('empty-dir');
+var emptyDir = require("empty-dir");
 
 function filter(filepath) {
   return /(Thumbs\.db|\.DS_Store)$/i.test(filepath);
 }
 
-emptyDir('./', filter, function (err, isEmpty) {
+emptyDir("./", filter, function (err, isEmpty) {
   if (err) {
     console.error(err);
   } else {
-    console.log('Directory is empty:', isEmpty);
+    console.log("Directory is empty:", isEmpty);
   }
 });
 
-var isEmpty = emptyDir.sync('./test/empty', filter);
-console.log('Directory is empty:', isEmpty);
+var isEmpty = emptyDir.sync("./test/empty", filter);
+console.log("Directory is empty:", isEmpty);
 ```
 
 #### Promises
@@ -71,12 +71,12 @@ console.log('Directory is empty:', isEmpty);
 Global promises are required for this module. If you are using a platform that doesn't have promise support, you'll need to polyfill Promise on the global.
 
 ```js
-global.Promise = require('insert-your-promise-polyfill-here');
+global.Promise = require("insert-your-promise-polyfill-here");
 
-var emptyDir = require('empty-dir');
+var emptyDir = require("empty-dir");
 
-emptyDir('./').then(function (result) {
-  console.log('Directory is empty:', result);
+emptyDir("./").then(function (result) {
+  console.log("Directory is empty:", result);
 });
 ```
 
