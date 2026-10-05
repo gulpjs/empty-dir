@@ -8,28 +8,35 @@
     "Jon Schlinkert <jon.schlinkert@sellside.com>",
     "Blaine Bublitz <blaine.bublitz@gmail.com>"
   ],
-  "repository": "gulpjs/empty-dir",
+  "funding": "https://github.com/sponsors/gulpjs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gulpjs/empty-dir.git"
+  },
   "license": "MIT",
   "engines": {
-    "node": ">=10.13.0"
+    "node": ">= 22.15.0"
   },
-  "main": "index.js",
+  "main": "./index.js",
   "files": [
     "index.js",
     "LICENSE"
   ],
   "scripts": {
+    "format-check": "prettier . --check",
+    "format-write": "prettier . --write",
     "lint": "eslint .",
     "pretest": "npm run lint",
     "test": "nyc mocha --async-only"
   },
   "devDependencies": {
-    "eslint": "^7.0.0",
-    "eslint-config-gulp": "^5.0.0",
+    "eslint": "10.11.0",
+    "eslint-config-gulp": "7.0.0",
     "eslint-plugin-node": "^11.1.0",
     "expect": "^27.0.0",
     "mocha": "^8.0.0",
     "nyc": "^15.0.0",
+    "prettier": "3.9.6",
     "sinon": "^12.0.1"
   },
   "nyc": {
@@ -37,9 +44,6 @@
       "lcov",
       "text-summary"
     ]
-  },
-  "prettier": {
-    "singleQuote": true
   },
   "keywords": [
     "empty",
