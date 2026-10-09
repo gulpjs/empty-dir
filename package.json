@@ -1,6 +1,6 @@
 {
   "name": "empty-dir",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "Check if a directory is empty.",
   "author": "Gulp Team <team@gulpjs.com> (https://gulpjs.com/)",
   "contributors": [
