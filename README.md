@@ -99,7 +99,7 @@ MIT
 [npm-url]: https://www.npmjs.com/package/empty-dir
 [npm-image]: https://img.shields.io/npm/v/empty-dir.svg?style=flat-square
 
-[ci-url]: https://github.com/gulpjs/$PROJECT_NAME/actions/workflows/dev.yml
+[ci-url]: https://github.com/gulpjs/empty-dir/actions/workflows/dev.yml
 [ci-image]: https://img.shields.io/github/actions/workflow/status/gulpjs/$PROJECT_NAME/dev.yml?style=flat-square
 
 [coveralls-url]: https://coveralls.io/r/gulpjs/$PROJECT_NAME
