@@ -19,26 +19,20 @@ function isGarbageFile(filename) {
 
 describe("emptyDir", function () {
   it("should throw when the callback is not a function", function (t, done) {
-    assert.throws(() =>
-      expect(function () {
-        emptyDir("./", "foo", "bar");
-      }),
-    );
+    assert.throws(function () {
+      emptyDir("./", "foo", "bar");
+    });
     done();
   });
 
   it("should throw when invalid arguments are passed", function (t, done) {
-    assert.throws(() =>
-      expect(function () {
-        emptyDir.sync(null);
-      }),
-    );
+    assert.throws(function () {
+      emptyDir.sync(null);
+    });
 
-    assert.throws(() =>
-      expect(function () {
-        emptyDir(null);
-      }),
-    );
+    assert.throws(function () {
+      emptyDir(null);
+    });
     done();
   });
 
@@ -92,7 +86,6 @@ describe("emptyDir", function () {
   });
 
   it("surfaces readdir error if one occurs", function (t, done) {
-
     t.mock.method(fs, "readdir", function (dirpath, cb) {
       cb(new Error("boom"));
     });
