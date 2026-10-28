@@ -78,7 +78,8 @@ describe("emptyDir", function () {
   it("should call back with false if a directory is not empty", function (t, done) {
     assert.deepStrictEqual(emptyDir.sync("./"), false);
     emptyDir("./", function (err, empty) {
-      assert.deepStrictEqual(empty, false);
+      assert.ifError(err);
+      assert.strictEqual(empty, false);
       done();
     });
   });
