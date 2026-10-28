@@ -39,7 +39,7 @@ function emptyDir(dir, filter, cb) {
   if (cb) {
     p.then(function (result) {
       cb(null, result);
-    }).catch(cb);
+    }, cb);
     return;
   }
 
