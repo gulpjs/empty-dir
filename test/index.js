@@ -53,7 +53,7 @@ describe("emptyDir", function () {
     );
 
     emptyDir(["Thumbs.db", ".DS_Store"], isGarbageFile, function (err, empty) {
-      assert.deepStrictEqual(empty, undefined);
+      assert.strictEqual(empty, undefined);
       done();
     });
   });
@@ -62,6 +62,7 @@ describe("emptyDir", function () {
     assert.deepStrictEqual(emptyDir.sync("./test"), false);
     assert.deepStrictEqual(emptyDir.sync("./test/empty"), true);
     emptyDir("./test/empty", function (err, empty) {
+      assert.ifError(err);
       assert.deepStrictEqual(empty, true);
       done();
     });
@@ -87,7 +88,6 @@ describe("emptyDir", function () {
       cb(new Error("boom"));
     });
 
-    assert.deepStrictEqual(emptyDir.sync("./test/empty"), true);
     emptyDir("./test/empty", function (err, empty) {
       assert.notStrictEqual(err, undefined);
       assert.deepStrictEqual(empty, undefined);
