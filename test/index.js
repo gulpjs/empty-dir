@@ -71,8 +71,10 @@ describe("emptyDir", function () {
 
   it("should be false if a directory does not exist", function (t, done) {
     assert.deepStrictEqual(emptyDir.sync("./foo/bar/baz"), false);
-    emptyDir("./foo/bar/baz", function (err) {
-      done(err);
+    emptyDir("./foo/bar/baz", function (err, empty) {
+      assert.ifError(err);
+      assert.deepStrictEqual(empty, false);
+      done();
     });
   });
 
