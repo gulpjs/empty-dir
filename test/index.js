@@ -53,7 +53,8 @@ describe("emptyDir", function () {
     );
 
     emptyDir(["Thumbs.db", ".DS_Store"], isGarbageFile, function (err, empty) {
-      assert.strictEqual(empty, undefined);
+      assert.ifError(err);
+      assert.strictEqual(empty, true);
       done();
     });
   });
