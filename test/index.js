@@ -1,8 +1,9 @@
-var fs = require("fs");
-var path = require("path");
+"use strict";
 
-var expect = require("expect");
-var sinon = require("sinon");
+var fs = require("node:fs");
+var path = require("node:path");
+var assert = require("node:assert");
+var { describe, it } = require("node:test");
 
 var emptyDir = require("../");
 try {
@@ -16,111 +17,114 @@ function isGarbageFile(filename) {
 }
 
 describe("emptyDir", function () {
-  it("should throw when the callback is not a function", function (done) {
-    expect(function () {
+  it("should throw when the callback is not a function", function () {
+    assert.throws(function () {
       emptyDir("./", "foo", "bar");
-    }).toThrow(/expected/);
-    done();
+    });
   });
 
-  it("should throw when invalid arguments are passed", function (done) {
-    expect(function () {
+  it("should throw when invalid arguments are passed", function () {
+    assert.throws(function () {
       emptyDir.sync(null);
-    }).toThrow();
+    });
 
-    expect(function () {
+    assert.throws(function () {
       emptyDir(null);
-    }).toThrow();
-    done();
+    });
   });
 
-  it("should take an array", function (done) {
-    expect(emptyDir.sync(["Thumbs.db", ".DS_Store"])).toEqual(false);
+  it("should take an array", function (t, done) {
+    assert.deepStrictEqual(emptyDir.sync(["Thumbs.db", ".DS_Store"]), false);
+
     emptyDir(["Thumbs.db", ".DS_Store"], function (err, empty) {
-      expect(empty).toEqual(false);
+      assert.deepStrictEqual(empty, false);
       done();
     });
   });
 
-  it("should take a filter function to exclude files", function (done) {
-    expect(emptyDir.sync(["Thumbs.db", ".DS_Store"], isGarbageFile)).toEqual(
+  it("should take a filter function to exclude files", function (t, done) {
+    assert.deepStrictEqual(
+      emptyDir.sync(["Thumbs.db", ".DS_Store"], isGarbageFile),
       true,
     );
-    expect(
+    assert.deepStrictEqual(
       emptyDir.sync(["Thumbs.db", ".DS_Store", "foo"], isGarbageFile),
-    ).toEqual(false);
+      false,
+    );
 
     emptyDir(["Thumbs.db", ".DS_Store"], isGarbageFile, function (err, empty) {
-      expect(empty).toEqual(true);
+      assert.ifError(err);
+      assert.strictEqual(empty, true);
       done();
     });
   });
 
-  it("should call back with true if a directory is empty", function (done) {
-    expect(emptyDir.sync("./test")).toEqual(false);
-    expect(emptyDir.sync("./test/empty")).toEqual(true);
+  it("should call back with true if a directory is empty", function (t, done) {
+    assert.deepStrictEqual(emptyDir.sync("./test"), false);
+    assert.deepStrictEqual(emptyDir.sync("./test/empty"), true);
     emptyDir("./test/empty", function (err, empty) {
-      expect(empty).toEqual(true);
+      assert.ifError(err);
+      assert.deepStrictEqual(empty, true);
       done();
     });
   });
 
-  it("should be false if a directory does not exist", function (done) {
-    expect(emptyDir.sync("./foo/bar/baz")).toEqual(false);
-    emptyDir("./foo/bar/baz", function (err) {
-      done(err);
+  it("should be false if a directory does not exist", function (t, done) {
+    assert.deepStrictEqual(emptyDir.sync("./foo/bar/baz"), false);
+    emptyDir("./foo/bar/baz", function (err, empty) {
+      assert.ifError(err);
+      assert.deepStrictEqual(empty, false);
+      done();
     });
   });
 
-  it("should call back with false if a directory is not empty", function (done) {
-    expect(emptyDir.sync("./")).toEqual(false);
+  it("should call back with false if a directory is not empty", function (t, done) {
+    assert.deepStrictEqual(emptyDir.sync("./"), false);
     emptyDir("./", function (err, empty) {
-      expect(empty).toEqual(false);
+      assert.ifError(err);
+      assert.strictEqual(empty, false);
       done();
     });
   });
 
-  it("surfaces readdir error if one occurs", function (done) {
-    sinon.stub(fs, "readdir").callsFake(function (dirpath, cb) {
+  it("surfaces readdir error if one occurs", function (t, done) {
+    t.mock.method(fs, "readdir", function (dirpath, cb) {
       cb(new Error("boom"));
     });
 
     emptyDir("./test/empty", function (err, empty) {
-      fs.readdir.restore();
-
-      expect(err).toBeDefined();
-      expect(empty).toBeUndefined();
-
+      assert.notStrictEqual(err, undefined);
+      assert.deepStrictEqual(empty, undefined);
       done();
     });
   });
 
   describe("without a callback argument", function () {
-    it("should return a Promise", function (done) {
+    it("should return a Promise", function (t, done) {
       var p = emptyDir("./test/empty");
-      expect(typeof p.then).toEqual("function");
+      assert.deepStrictEqual(typeof p.then, "function");
       p.then(function () {
         done();
       });
     });
 
-    it("should resolve with false if a directory does not exist", function (done) {
+    it("should resolve with false if a directory does not exist", function (t, done) {
       emptyDir("/root/super/secret").then(function (result) {
-        expect(result).toEqual(false);
+        assert.deepStrictEqual(result, false);
         done();
       });
     });
 
-    it("should resolve with true if a directory is empty", function (done) {
+    it("should resolve with true if a directory is empty", function (t, done) {
       emptyDir("./test/empty").then(function (result) {
-        expect(result).toEqual(true);
+        assert.deepStrictEqual(result, true);
         done();
       });
     });
 
-    it("should resolve with false if a directory is not empty", function (done) {
+    it("should resolve with false if a directory is not empty", function (t, done) {
       emptyDir("./test").then(function (result) {
-        expect(result).toEqual(false);
+        assert.deepStrictEqual(result, false);
         done();
       });
     });
