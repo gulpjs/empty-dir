@@ -1,10 +1,9 @@
 "use strict";
 
-var assert = require("node:assert");
-var { describe, it } = require("node:test");
-
 var fs = require("node:fs");
 var path = require("node:path");
+var assert = require("node:assert");
+var { describe, it } = require("node:test");
 
 var emptyDir = require("../");
 try {
@@ -18,14 +17,13 @@ function isGarbageFile(filename) {
 }
 
 describe("emptyDir", function () {
-  it("should throw when the callback is not a function", function (t, done) {
+  it("should throw when the callback is not a function", function () {
     assert.throws(function () {
       emptyDir("./", "foo", "bar");
     });
-    done();
   });
 
-  it("should throw when invalid arguments are passed", function (t, done) {
+  it("should throw when invalid arguments are passed", function () {
     assert.throws(function () {
       emptyDir.sync(null);
     });
@@ -33,7 +31,6 @@ describe("emptyDir", function () {
     assert.throws(function () {
       emptyDir(null);
     });
-    done();
   });
 
   it("should take an array", function (t, done) {
